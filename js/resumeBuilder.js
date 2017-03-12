@@ -28,7 +28,27 @@ work.employer = "The University of Chicago Becker Friedman Institute of Research
 work.years = 1;
 work.city = "Chicago";
 
-var education = {};
-education["name"]= "The University of Chicago";
-education["years"] = 1;
-education["city"] = "Chicago";
+var education = {
+
+"schools" : [
+
+{
+"name":"The University of Chicago",
+"city":"Chicago",
+"majors": ["Economics", "Computer Science"],
+"graduation year" : 2020
+
+},
+
+{
+"name":"Udacity",
+"city":"online",
+"majors": ["Frontend Web Developing"],
+"graduation year" : 2017
+
+}
+
+]
+
+};
+
