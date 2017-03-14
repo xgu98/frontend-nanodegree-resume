@@ -69,7 +69,27 @@ var education = {
 
 };
 
-var projects={};
+var projects={
+
+	"project":[
+{
+	"title":"Animal Trading Card",
+	"dates":"November 2016",
+	"description": "An animal trading card with American Red Squirrel description and image.",
+	"images": ["images/squirrel.jpeg"]
+},
+
+{
+	"title":"Portfolio Site",
+	"dates":"December 2016",
+	"description": "A sample portfolio site with my profile picture and link to Peddie School's homepage",
+	"images": ["images/fry.jpg"]
+}
+
+
+
+	]
+};
 
  if (bio.skills.length>0) {
 	
@@ -108,3 +128,39 @@ $(document).click(function(loc) {
 	var y = loc.pageY;
   logClicks(x,y);
 });
+
+$("#main").append(internationalizeButton);
+function inName(name){
+name=name.trim().split(" ");
+name[0]=name[0].slice(0,1).toUpperCase()+name[0].slice(1).toLowerCase();
+name[1]=name[1].toUpperCase();
+
+return name[0]+" "+name[1];
+}
+
+projects.display= function() {
+
+for(var i=0; i<projects.project.length;i++){
+	$("#projects").append(HTMLprojectStart);
+	var formattedTitle=HTMLprojectTitle.replace("%data%",projects.project[i].title);
+	$(".project-entry:last").append(formattedTitle);
+	var formattedDates=HTMLprojectDates.replace("%data%",projects.project[i].dates);
+	$(".project-entry:last").append(formattedDates);
+	var formattedDescription=HTMLprojectDescription.replace("%data%",projects.project[i].description);
+	$(".project-entry:last").append(formattedDescription);
+
+	if(projects.project[i].images.length>0){
+		for(var j=0; j<projects.project[i].images.length;j++){
+		var formattedImage=HTMLprojectImage.replace("%data%", projects.project[i].images[j])
+		$(".project-entry:last").append(formattedImage);
+	}
+	}
+}
+
+};
+
+projects.display();
+
+
+
+
