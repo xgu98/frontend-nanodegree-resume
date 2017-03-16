@@ -2,7 +2,7 @@
 
 
 var bio = {
-	"name": "Xiaohe Grace Gu",
+	"name": "Grace Gu",
 	"role": "Student",
 	"contacts": {
 		"email":"xgu@uchicago.edu",
@@ -10,9 +10,9 @@ var bio = {
 		"github" : "xgu98",
 		"location": "Chicago,IL"
 	},
-	"picture URL": "https://scontent-ort2-1.xx.fbcdn.net/v/t1.0-9/16473573_749990395152636_1414885734714500220_n.jpg?oh=c4d8a0bbe0c5aa523a4c4312bafaa848&oe=59636907",
-	"welcome message": "Welcome!",
-	"skills" : ["programming", "leadership", "public speaking", "Microsoft Office"]
+	"biopic": "images/pfp.jpg",
+	"welcomeMessage": "Welcome to my online resume!",
+	"skills" : ["programming", "entrepreneurship", "leadership", "public speaking", "Microsoft Office"]
 
 };
 
@@ -23,26 +23,26 @@ bio.display= function(){
 	$("#header").append(formattedName);
 	var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
 	$("#header").append(formattedRole);
+    var formattedBioPic=HTMLbioPic.replace("%data%",bio.biopic);
+    $("#header").append(formattedBioPic);
+    var formattedWelcomeMsg=HTMLwelcomeMsg.replace("%data%",bio.welcomeMessage);
+    $("#header").append(formattedWelcomeMsg);
 
-//$("#topContacts").append(HTMLcontactGeneric);
-var formattedEmail= HTMLemail.replace("%data%",bio.contacts.email);
-$("#topContacts").append(formattedEmail);
-var formattedMobile= HTMLmobile.replace("%data%",bio.contacts.mobile);
-$("#topContacts").append(formattedMobile);
-var formattedGithub= HTMLgithub.replace("%data%",bio.contacts.github);
-$("#topContacts").append(formattedGithub);
+    var formattedEmail= HTMLemail.replace("%data%",bio.contacts.email);
+    $("#topContacts").append(formattedEmail);
+    var formattedMobile= HTMLmobile.replace("%data%",bio.contacts.mobile);
+    $("#topContacts").append(formattedMobile);
+    var formattedGithub= HTMLgithub.replace("%data%",bio.contacts.github);
+    $("#topContacts").append(formattedGithub);
+
 
 if (bio.skills.length>0) {
 	
 	$("#header").append(HTMLskillsStart);
-	var formattedSkill=HTMLskills.replace("%data%", bio.skills[0]);
+	for(var i=0;i<bio.skills.length;i++){
+	var formattedSkill=HTMLskills.replace("%data%", bio.skills[i]);
 	$("#skills").append(formattedSkill);
-	formattedSkill=HTMLskills.replace("%data%", bio.skills[1]);
-	$("#skills").append(formattedSkill);
-	formattedSkill=HTMLskills.replace("%data%", bio.skills[2]);
-	$("#skills").append(formattedSkill);
-	formattedSkill=HTMLskills.replace("%data%", bio.skills[3]);
-	$("#skills").append(formattedSkill);
+}
 
 }
 
@@ -95,20 +95,35 @@ var education = {
 	{
 		"name":"The University of Chicago",
 		"location":"Chicago, IL",
+		"degree" : "Bachelor",
 		"majors": ["Economics", "Computer Science"],
 		"dates" : "September 2016-present",
-		"degree" : "Bachelor"
+		"url": "http://www.uchicago.edu/"
 
 	},
 
 	{
 		"name":"The Peddie School",
 		"location":"Hightstown, NJ",
+		"degree" : "High School",
 		"majors": [],
 		"dates" : "September 2012-May 2016",
-		"degree" : "High School"
+		"url":"https://www.peddie.org/page"
+	
 
 	}
+
+	],
+
+	"onlineCourses": [
+     {
+
+"title":"Udacity Front-end Web Developing",
+"school":"Udacity",
+"dates":"November 2016-present",
+"url":"https://www.udacity.com"
+
+}
 
 	]
 
@@ -126,19 +141,32 @@ education.display= function(){
 		$(".education-entry:last").append(formattedDates);
 		var formattedLocation=HTMLschoolLocation.replace("%data%", education.schools[i].location);
 		$(".education-entry:last").append(formattedLocation);
+		var formattedURL=HTMLschoolURL.replace("%data%", education.schools[i].url);
+		$(".education-entry:last").append(formattedURL);
 		if(education.schools[i].majors.length>0){
 
-			for(var j=0; j<education.schools[i].majors.length; j++){
-				var formattedMajor=HTMLschoolMajor.replace("%data%", education.schools[i].majors[j]);
+			
+				var formattedMajor=HTMLschoolMajor.replace("%data%", education.schools[i].majors);
 				$(".education-entry:last").append(formattedMajor);
-			}
+			
 		}
+
 	}
+	$(".education-entry:last").append(HTMLonlineClasses);
+	for(var i=0; i<education.onlineCourses.length;i++){
+		var formattedTitle=HTMLonlineTitle.replace("%data%", education.onlineCourses[i].title);
+		$(".education-entry:last").append(formattedTitle);
+		var formattedSchool=HTMLonlineSchool.replace("%data%", education.onlineCourses[i].school);
+		$(".education-entry:last").append(formattedSchool);
+		var formattedDates=HTMLonlineDates.replace("%data%", education.onlineCourses[i].dates);
+		$(".education-entry:last").append(formattedDates);
+		var formattedURL=HTMLonlineURL.replace("%data%", education.onlineCourses[i].url);
+		$(".education-entry:last").append(formattedURL);
+
+}
 };
 
-var onlineClasses={
 
-};
 
 var projects={
 
@@ -163,22 +191,6 @@ var projects={
 };
 
 
-
-$(document).click(function(loc) {
-	var x = loc.pageX;
-	var y = loc.pageY;
-	logClicks(x,y);
-});
-
-$("#main").append(internationalizeButton);
-function inName(name){
-	name=name.trim().split(" ");
-	name[0]=name[0].slice(0,1).toUpperCase()+name[0].slice(1).toLowerCase();
-	name[1]=name[1].toUpperCase();
-
-	return name[0]+" "+name[1];
-}
-
 projects.display= function() {
 
 	for(var i=0; i<projects.project.length;i++){
@@ -199,6 +211,21 @@ projects.display= function() {
 	}
 
 };
+
+$(document).click(function(loc) {
+	var x = loc.pageX;
+	var y = loc.pageY;
+	logClicks(x,y);
+});
+
+$("#main").append(internationalizeButton);
+function inName(name){
+	name=name.trim().split(" ");
+	name[0]=name[0].slice(0,1).toUpperCase()+name[0].slice(1).toLowerCase();
+	name[1]=name[1].toUpperCase();
+
+	return name[0]+" "+name[1];
+}
 
 
 
